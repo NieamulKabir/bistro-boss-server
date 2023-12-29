@@ -153,8 +153,9 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/reviews", async (req, res) => {
-      const result = await reviewCollection.find().toArray();
+    app.post("/menu", async (req, res) => {
+      const newItem = req.body;
+      const result = await menuCollection.insertOne(newItem);
       res.send(result);
     });
 
@@ -176,6 +177,12 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await cartCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    //reviews
+    app.get("/reviews", async (req, res) => {
+      const result = await reviewCollection.find().toArray();
       res.send(result);
     });
 
