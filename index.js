@@ -153,7 +153,7 @@ async function run() {
       res.send(result);
     });
 
-    app.post("/menu", async (req, res) => {
+    app.post("/menu", verifyJWT, verifyAdmin, async (req, res) => {
       const newItem = req.body;
       const result = await menuCollection.insertOne(newItem);
       res.send(result);
